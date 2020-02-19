@@ -1,5 +1,5 @@
 <?php
-// namespace
+namespace ale\app;
 
 /**
  * 

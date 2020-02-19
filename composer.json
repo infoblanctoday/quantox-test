@@ -1,0 +1,19 @@
+{
+    "name": "root/quantox-test",
+    "description": "Quantox Test",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Bazan",
+            "email": "bazan.alexander@outlook.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ale\\": ""
+        }
+    }
+}
