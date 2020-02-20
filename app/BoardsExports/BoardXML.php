@@ -7,8 +7,9 @@ namespace ale\app\BoardsExports;
  */
 class BoardXML implements BoardsExportsInterface
 {
-	public function board()
+	public function board($student)
 	{
-		echo "xml";
+		$student['final_result'] = ($student['average'] > 8 ? true : false);
+		return $student;
 	}
 }

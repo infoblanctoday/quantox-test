@@ -7,8 +7,9 @@ namespace ale\app\BoardsExports;
  */
 class BoardJson implements BoardsExportsInterface
 {
-	public function board()
+	public function board($student)
 	{
-		echo "Json";
+		$student['final_result'] = ($student['average'] >= 7 ? true : false);
+		return json_encode($student);
 	}
 }
