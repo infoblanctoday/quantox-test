@@ -89,8 +89,7 @@ INSERT INTO `students` (`student_id`, `name`, `school_board`) VALUES
 (1, 'Anthony', 1),
 (2, 'Giugiaro', 2),
 (3, 'Alex', 2),
-(4, 'Gim', 2),
-(5, 'Sam', 1);
+(4, 'Gim', 2);
 
 --
 -- Индексы сохранённых таблиц

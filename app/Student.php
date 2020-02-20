@@ -10,52 +10,48 @@ use ale\app\BoardsExports\{BoardJson, BoardXML};
  */
 class Student extends DB
 {
-	// protected $students = 
-	protected $students = [
-		1 => [
-			"name" => "Alex", 
-			"grades" => [
-				11,9,3,8
-			], 
-			"board" => 1,
-			"boardname" => "CSM",
-			"average" => 0,
-			"final_result" => null
-		],
-		2 => [
-			"name" => "Gim", 
-			"grades" => [
-				6,9,3,8
-			], 
-			"board" => 2,
-			"boardname" => "CSMB",
-			"average" => 0,
-			"final_result" => null
-		]
-	];
-
 	public function getUserGrades($id = 0)
 	{
 		$exporter = new Board;
-		
+
 		$database = new DB();
-		$database->query('SELECT * FROM students WHERE student_id = :student');
+		$database->query('SELECT students.name, students.school_board, school_boards.name as boardname FROM students 
+			INNER JOIN school_boards ON students.school_board = school_boards.id
+			WHERE student_id = :student');
+
 		$database->bind(':student', $id);
+		$student = $database->single();
 
-		$student = $database->resultset();
+		if ($student) {
+			$student['grades'] = $this->getGrades($id);
+			if ($student["school_board"] == 1) {
+				$exporter->setAverage($student);
+				$board = $exporter->board(new BoardJson, $student);
+			}else{
+				$exporter->setAverage($student);
+				$board = $exporter->board(new BoardXML, $student);
+			}
 
-		var_dump($student); die;
-
-		$student = $this->students[$id];
-
-		if ($student["school_board"] == 1) {
-			$exporter->setAverage($student);
-			$board = $exporter->board(new BoardJson, $student);
-		}else{
-			$exporter->setAverage($student);
-			$board = $exporter->board(new BoardXML, $student);
+			return $board;
 		}
 
-		return $board;
+		return 404;
+	}
+
+	protected function getGrades($id)
+	{
+		$database = new DB();
+
+		$database->query('SELECT grade FROM grades WHERE student_id = :student');
+		$database->bind(':student', $id);
+
+		$grades = [];
+
+		$r = $database->resultset();
+		foreach ($r as $grade) {
+			$grades[] = (int)$grade["grade"];
+		}
+
+		return $grades;
 	}
 }

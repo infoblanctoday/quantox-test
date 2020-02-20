@@ -8,4 +8,4 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $st = new ale\app\Student();
 
-var_dump($st->getUserGrades($_GET['student']));
+echo $st->getUserGrades($_GET['student']);
