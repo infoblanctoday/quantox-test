@@ -6,10 +6,12 @@ use ale\app\Board;
 use ale\app\BoardsExports\{BoardJson, BoardXML};
 
 /**
- * 
+ * Returns a board for selected student
  */
 class Student extends DB
 {
+	// Returns a board 
+	// Depends on get param
 	public function getUserGrades($id = 0)
 	{
 		$exporter = new Board;
@@ -38,6 +40,7 @@ class Student extends DB
 		return 404;
 	}
 
+	// Returns students grades
 	protected function getGrades($id)
 	{
 		$database = new DB();

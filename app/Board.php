@@ -5,16 +5,18 @@ namespace ale\app;
 use ale\app\BoardsExports\BoardsExportsInterface;
 
 /**
- * 
+ * Returns a board according to student array given
  */
 class Board
 {
+	// Returns a board in specified format
 	public function board(BoardsExportsInterface $b, $student)
 	{
 		$student = $this->setAverage($student);
 		return $b->board($student);
 	}
 
+	// Setting average grade, depends on student grades
 	public function setAverage($student)
 	{
 		$grades = $student['grades'];
